@@ -3,47 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Ship : MonoBehaviour
 {
+
+    #region Fields
 
     [SerializeField]
     private float thrustForce = 5f;
     [SerializeField]
     private float rotateDegreesPerSecond = 10f;
 
+    [SerializeField]
+    Text positionUi;
+
     Vector2 thrustDirection;
-    float radius;
+
+    #endregion
+
+    #region Methods
 
     void Start()
     {
-        //getting a radius of collider, just for correct warping an object
-        radius = gameObject.GetComponent<CircleCollider2D>().radius;
-
         //changing start direction from "right" to "forward", by adding a 90 degrees
         thrustDirection = new Vector2(Mathf.Cos((transform.eulerAngles.z + 90.0f) * Mathf.Deg2Rad), Mathf.Sin((transform.eulerAngles.z + 90.0f) * Mathf.Deg2Rad));
     }
 
     /// <summary>
-    /// Method, that warp the ship to the opposite side, when he leaves the visible area.
+    /// Warp the ship, when he leaves one of the border.
     /// </summary>
     void OnBecameInvisible()
     {
-        //just for no to do this nullable
-        float newX = transform.position.x;
-        float newY = transform.position.y;
-
-        //describing the new coordinates, when object leaves the visible area
-        //subtracting the scale of object (radius of collider), for wapring to outside area for more beauty
-        if (transform.position.x > ScreenUtils.ScreenRight) newX = ScreenUtils.ScreenLeft - radius;
-        if (transform.position.x < ScreenUtils.ScreenLeft) newX = ScreenUtils.ScreenRight - radius;
-        if (transform.position.y > ScreenUtils.ScreenTop) newY = ScreenUtils.ScreenBottom - radius;
-        if (transform.position.y < ScreenUtils.ScreenBottom) newY = ScreenUtils.ScreenTop - radius;
-
-        //declare the vector with new coordinates
-        //and warping the object to this coordinates
-        Vector2 position = new Vector2(newX, newY);
-        transform.position = position;
+        Warping.Warp(gameObject);
     }
 
     
@@ -72,5 +64,10 @@ public class Ship : MonoBehaviour
             thrustDirection = new Vector2(Mathf.Cos((transform.eulerAngles.z + 90.0f) * Mathf.Deg2Rad), Mathf.Sin((transform.eulerAngles.z + 90.0f) * Mathf.Deg2Rad));
             
         }
+
+        positionUi.text = $"X: {transform.position.x}\nY: {transform.position.y}\nZ: {transform.position.z}";
+
     }
+    #endregion
+
 }
