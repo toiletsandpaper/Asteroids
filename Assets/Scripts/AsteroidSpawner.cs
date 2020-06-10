@@ -33,7 +33,8 @@ public class AsteroidSpawner : MonoBehaviour
 
     #endregion
 
-    #region Methods
+    #region UnityMethods
+
     void Start()
     {
 
@@ -72,6 +73,10 @@ public class AsteroidSpawner : MonoBehaviour
             timer.Run();
         }
     }
+
+    #endregion
+
+    #region CustomMethods
 
     /// <summary>
     /// Spawn asteroid with chechink on collider-free space

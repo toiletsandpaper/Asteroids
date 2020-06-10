@@ -133,5 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrustForce: 10
   rotateDegreesPerSecond: 60
+  explosion: {fileID: 2410915907166507454, guid: 1a980109814757d45951fb92b5f212fd,
+    type: 3}
   positionUi: {fileID: 5878136545806484356, guid: 5e9238e4f62496949b8ffb9eba2f4f89,
     type: 3}

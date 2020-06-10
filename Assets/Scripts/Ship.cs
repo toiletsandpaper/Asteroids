@@ -14,6 +14,8 @@ public class Ship : MonoBehaviour
     private float thrustForce = 5f;
     [SerializeField]
     private float rotateDegreesPerSecond = 10f;
+    [SerializeField]
+    GameObject explosion;
 
     [SerializeField]
     Text positionUi;
@@ -22,7 +24,7 @@ public class Ship : MonoBehaviour
 
     #endregion
 
-    #region Methods
+    #region UnityMethods
 
     void Start()
     {
@@ -38,7 +40,18 @@ public class Ship : MonoBehaviour
         Warping.Warp(gameObject);
     }
 
-    
+    /// <summary>
+    /// Death method
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Asteroid") Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
+        Destroy(gameObject);
+        Camera.main.GetComponent<AudioSource>().Stop();
+    }
+
+
     void FixedUpdate()
     {
         //giving force to object, when Thrust-button is pressed
@@ -65,7 +78,7 @@ public class Ship : MonoBehaviour
             
         }
 
-        positionUi.text = $"X: {transform.position.x}\nY: {transform.position.y}\nZ: {transform.position.z}";
+        positionUi.text = $"X: {transform.position.x}\nY: {transform.position.y}\nMusic:\n Alyans Na Zare (Phonk Edition) | yungpiece\n Lol U Died";
 
     }
     #endregion

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7965151273626561838}
   - component: {fileID: 7129016877047734760}
   - component: {fileID: 5624445403036675333}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Asteroid2
   m_TagString: Asteroid
   m_Icon: {fileID: 0}
@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f681fec5365b84984ffb7be042e063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinImpulseForce: 1
-  MaxImpulseForce: 3
+  MinImpulseForce: 0.1
+  MaxImpulseForce: 0.5
 --- !u!50 &7129016877047734760
 Rigidbody2D:
   serializedVersion: 4
