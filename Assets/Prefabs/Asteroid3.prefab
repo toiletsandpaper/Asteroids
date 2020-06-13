@@ -96,6 +96,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinImpulseForce: 0.1
   MaxImpulseForce: 0.5
+  explosion: {fileID: 2410915907166507454, guid: 1a980109814757d45951fb92b5f212fd,
+    type: 3}
 --- !u!50 &3541640667976895356
 Rigidbody2D:
   serializedVersion: 4

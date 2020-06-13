@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8414040500564077525}
   - component: {fileID: 1517606083821845181}
   - component: {fileID: 8577768053948235818}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ship
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -135,5 +135,8 @@ MonoBehaviour:
   rotateDegreesPerSecond: 60
   explosion: {fileID: 2410915907166507454, guid: 1a980109814757d45951fb92b5f212fd,
     type: 3}
+  bullet: {fileID: 7972244802888002860, guid: 699c372d878fcb44386633def418c8b1, type: 3}
   positionUi: {fileID: 5878136545806484356, guid: 5e9238e4f62496949b8ffb9eba2f4f89,
     type: 3}
+  gameMusic: {fileID: 8300000, guid: 4491111939fa94740a67c3b366d87dc8, type: 3}
+  deathMusic: {fileID: 8300000, guid: 410e66732f04f9940a6afccde83e0402, type: 3}

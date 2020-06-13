@@ -9,6 +9,9 @@ public class Asteroid : MonoBehaviour
     [SerializeField]
     private float MaxImpulseForce = 0.5f;
 
+    [SerializeField]
+    GameObject explosion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,5 +43,10 @@ public class Asteroid : MonoBehaviour
     private void OnBecameInvisible()
     {
         Warping.Warp(gameObject);
+    }
+
+    public void OnDestroy()
+    {
+        Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
     }
 }
