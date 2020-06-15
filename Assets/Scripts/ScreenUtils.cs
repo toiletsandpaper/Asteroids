@@ -23,6 +23,20 @@ public static class ScreenUtils
 
     #region Properties
 
+    public static bool isMouseInTheScreen
+    {
+        get
+        {
+            return
+                !(
+                Camera.main.ScreenToWorldPoint(Input.mousePosition).x < screenLeft ||
+                Camera.main.ScreenToWorldPoint(Input.mousePosition).x > screenRight ||
+                Camera.main.ScreenToWorldPoint(Input.mousePosition).y > screenTop ||
+                Camera.main.ScreenToWorldPoint(Input.mousePosition).y < screenBottom
+                );
+        }
+    }
+
     /// <summary>
     /// Gets the left edge of the screen in world coordinates
     /// </summary>

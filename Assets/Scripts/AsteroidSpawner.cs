@@ -12,15 +12,15 @@ public class AsteroidSpawner : MonoBehaviour
     GameObject[] prefabAsteroids;
 
     [SerializeField]
-    private float MinDelay = 1f;
+    private float MinDelay = 0.5f;
     [SerializeField] 
-    private float MaxDelay = 3f;
+    private float MaxDelay = 1.5f;
     [SerializeField]
     int MaxSpawnTries = 3;
 
     Timer timer;
 
-    const int SpawnBorderSize = 300;
+    const int SpawnBorderSize = 600;
     int minSpawnX;
     int maxSpawnX;
     int minSpawnY;

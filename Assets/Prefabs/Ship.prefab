@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrustForce: 10
-  rotateDegreesPerSecond: 60
+  rotateDegreesPerSecond: 360
   explosion: {fileID: 2410915907166507454, guid: 1a980109814757d45951fb92b5f212fd,
     type: 3}
   bullet: {fileID: 7972244802888002860, guid: 699c372d878fcb44386633def418c8b1, type: 3}

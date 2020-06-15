@@ -27,8 +27,9 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Asteroid") 
-        { 
-            Destroy(collision.gameObject);
+        {
+            Destroy(gameObject);
+            collision.gameObject.GetComponent<Asteroid>().SplitOrDestroy(); ;
         }
     }
     private void Start()

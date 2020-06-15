@@ -21,14 +21,18 @@ public class Ship : MonoBehaviour
     Bullet bullet;
 
     [SerializeField]
-    Text positionUi;
-
-    [SerializeField]
     AudioClip gameMusic;
     [SerializeField]
     AudioClip deathMusic;
 
+    [SerializeField]
+    float shootDelay = 0.25f;
+    Timer shootDelayTimer;
+
     Vector2 thrustDirection;
+    Vector3 inMouseDirection;
+    float angle;
+
 
     #endregion
 
@@ -41,9 +45,11 @@ public class Ship : MonoBehaviour
 
     private void Awake()
     {
+        shootDelayTimer = gameObject.AddComponent<Timer>();
+        shootDelayTimer.Duration = shootDelay;
+        shootDelayTimer.Run();
         //just playing some music on background
-        Camera.main.GetComponent<AudioSource>().clip = gameMusic;
-        Camera.main.GetComponent<AudioSource>().Play();
+        AudioManager.Play(AudioClipName.Background);
     }
     void Start()
     {
@@ -68,9 +74,10 @@ public class Ship : MonoBehaviour
         if (collision.gameObject.tag == "Asteroid")
         {
             //changing the music to death-music :)
-            Camera.main.GetComponent<AudioSource>().clip = deathMusic;
-            Camera.main.GetComponent<AudioSource>().Play();
-            
+            AudioManager.Stop();
+            AudioManager.Play(AudioClipName.Explosion);
+            AudioManager.Play(AudioClipName.PlayerDeath);
+
             //instantitate an explosion and destroying ship
             Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
@@ -81,10 +88,14 @@ public class Ship : MonoBehaviour
     void FixedUpdate()
     {
         //giving force to object, when Thrust-button is pressed
-        if(Input.GetAxis("Thrust") > 0)
+        if(Input.GetAxis("Thrust") != 0)
         {
             Vector2 movement = thrustDirection * thrustForce;
             gameObject.GetComponent<Rigidbody2D>().AddForce(movement, ForceMode2D.Force);
+
+            //changing force direction
+            //changing start direction from "right" to "forward", by adding a 90 degrees
+            thrustDirection = new Vector2(Mathf.Cos((transform.eulerAngles.z + 90.0f) * Mathf.Deg2Rad), Mathf.Sin((transform.eulerAngles.z + 90.0f) * Mathf.Deg2Rad));
         }
         //rotate the object, when Rotate-buttin is pressed
         if (Input.GetAxis("Rotate") != 0)
@@ -96,23 +107,23 @@ public class Ship : MonoBehaviour
             {
                 rotationAmount *= -1;
             }
-            transform.Rotate(Vector3.forward, rotationAmount);
-
-            //changing force direction
-            //changing start direction from "right" to "forward", by adding a 90 degrees
-            thrustDirection = new Vector2(Mathf.Cos((transform.eulerAngles.z + 90.0f) * Mathf.Deg2Rad), Mathf.Sin((transform.eulerAngles.z + 90.0f) * Mathf.Deg2Rad));
-            
+            transform.Rotate(Vector3.forward, rotationAmount);            
         }
         //shoots the bullet, when "Left-Control" is pressed
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetAxis("Shoot") != 0 && shootDelayTimer.Finished)
         {
             //adding transform.rotation to object for instantiate the bullet in ship's direction angle
             Instantiate(bullet, gameObject.transform.position, gameObject.transform.rotation);
+            AudioManager.Play(AudioClipName.PlayerShot);
+            shootDelayTimer.Run();
         }
 
-        //giving to UI text the coordinates of ship and some other info
-        positionUi.text = $"X: {transform.position.x}\nY: {transform.position.y}\nMusic:\n Alyans Na Zare (Phonk Edition) | yungpiece\n Lol U Died";
-
+        if (ScreenUtils.isMouseInTheScreen)
+        {
+            inMouseDirection = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+            angle = Mathf.Atan2(-inMouseDirection.x, inMouseDirection.y) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
     }
     #endregion
 
