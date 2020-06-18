@@ -1,0 +1,20 @@
+# Unity Files
+obj
+Packages
+Library
+Logs
+
+# Build Directory
+Build
+
+# Other files
+*.exe
+*.rar
+*.pdf
+
+# C# project files
+*.csproj
+*.sln
+
+# VS config files
+.vs
